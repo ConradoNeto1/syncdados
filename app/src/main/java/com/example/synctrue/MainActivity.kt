@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(), ListEntregasContract.View {
         setContentView(R.layout.activity_main)
 
         present = ListEntregasPresent(this)
-//        loadDataSuccess()
+        loadDataSuccess()
 
         val recyclerView = rv_lista_entregas
         recyclerView.adapter = listDataSuccess()?.let { EntregaListAdapter(it, this) }

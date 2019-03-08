@@ -5,10 +5,12 @@ import android.content.Context
 import android.util.Log
 import com.example.synctrue.api.ApiInterface
 import com.example.synctrue.db.AppDataBase
+import com.example.synctrue.db.dao.EntregaDAO
 import com.example.synctrue.models.Entrega
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDateTime
 
 
 class ListEntregasPresent : ListEntregasContract.Presenter {
@@ -41,7 +43,10 @@ class ListEntregasPresent : ListEntregasContract.Presenter {
                    val entregasRetorno: List<Entrega> = it
 
                    for(entrega in entregasRetorno){
-                       entregaDao?.addEntrega(entrega)
+                       if (entregaDao != null) {
+                           verificaAtualizacao(entrega, entregaDao)
+                       }
+//                       entregaDao?.addEntrega(entrega)
                        Log.i("SyncTrue", "loop onResponse")
                    }
                }
@@ -68,4 +73,18 @@ class ListEntregasPresent : ListEntregasContract.Presenter {
 
     }
 
+    override fun verificaAtualizacao(entrega: Entrega, entregaDAO: EntregaDAO) {
+        val entregaBancoLocal = entregaDAO.getEntregaByT32Id(entrega.t32_id)
+
+        if(entregaBancoLocal == null){
+            entregaDAO.addEntrega(entrega)
+            Log.i("SyncTrue", "Insert")
+        }else if(!entregaBancoLocal.t32_data_hora_atualizacao.equals(entrega.t32_data_hora_atualizacao)){
+
+            entrega.id = entregaBancoLocal.id
+
+            entregaDAO.updateEntrega(entrega)
+            Log.i("SyncTrue", "Update")
+        }
+    }
 }

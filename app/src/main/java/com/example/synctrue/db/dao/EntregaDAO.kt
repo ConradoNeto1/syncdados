@@ -19,5 +19,5 @@ interface EntregaDAO {
     fun updateEntrega(vararg entrega: Entrega)
 
     @Query("SELECT * FROM Entrega WHERE t32_id = :t32_id")
-    fun getEntregaByT32Id(vararg t32_id: Int) : List<Entrega>
+    fun getEntregaByT32Id(vararg t32_id: Int) : Entrega
 }
