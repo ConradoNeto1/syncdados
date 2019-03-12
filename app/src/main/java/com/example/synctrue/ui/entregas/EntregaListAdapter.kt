@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView.Adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.synctrue.R
 import com.example.synctrue.models.Entrega
 import kotlinx.android.synthetic.main.item_lista_entrega.view.*
@@ -39,6 +40,9 @@ class EntregaListAdapter(private val entregas: List<Entrega>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val entrega = entregas[position]
         holder.bindView(entrega)
+        holder.itemView.setOnClickListener{
+            Toast.makeText(context, "Clicked $position",Toast.LENGTH_SHORT).show()
+        }
     }
 }
 
