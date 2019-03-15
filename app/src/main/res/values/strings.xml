@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SyncTrue</string>
+    <string name="salvar">Salvar</string>
+    <string name="valor">Valor</string>
+    <string name="endere_o">Endereço</string>
+    <string name="peso">Peso</string>
 </resources>
